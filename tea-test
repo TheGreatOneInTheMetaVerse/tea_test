@@ -1,0 +1,32 @@
+from tea_wallet import TeaWallet
+from tea_testnet import TeaTestnet
+
+# Create a Tea Wallet
+wallet = TeaWallet.create()
+
+# Connect to Tea Testnet
+testnet = TeaTestnet(wallet)
+
+# Define your advanced code
+advanced_code = """
+contract AdvancedTea {
+    uint256 public totalSupply;
+    mapping(address => uint256) public balances;
+
+    constructor(uint256 _initialSupply) {
+        totalSupply = _initialSupply;
+        balances[msg.sender] = _initialSupply;
+    }
+
+    function transfer(address _to, uint256 _amount) public {
+        require(balances[msg.sender] >= _amount, "Insufficient balance");
+        balances[msg.sender] -= _amount;
+        balances[_to] += _amount;
+    }
+}
+"""
+
+# Deploy the advanced code to Tea Testnet
+contract_address = testnet.deploy_contract(advanced_code)
+
+print("Advanced contract deployed at address:", contract_address)
